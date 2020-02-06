@@ -16,7 +16,7 @@ venv: dependencies
 
 
 requirements:
-	$(PYTHON) -m pip install -r $(PROJECT_DIR)requirements.txt
+	python -m pip install -r $(PROJECT_DIR)requirements.txt
 
 
 build:
@@ -51,8 +51,10 @@ tox-clean:
 	rm -r .tox
 
 
-tests: up
-	tox -e tests
+tests: 
+	export PYTHONPATH=PYTHONPATH:$(PROJECT_DIR)
+	python tests.py
+	#tox -e tests
 
 
 coala: up

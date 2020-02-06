@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from css import style
 
-import style
 
 class Widget:
 	
@@ -15,11 +15,13 @@ class Widget:
 		if self._parent is not None:
 			self._parent._children[self._name] = self
 
+
 class P(Widget):
 	
 	def __init__(self, name, parent=None, styleClass=None):
 		Widget.__init__(self, name, parent, styleClass)
 		self._styles['font-family'] = None
+
 
 class A(Widget):
 	
@@ -27,48 +29,16 @@ class A(Widget):
 		Widget.__init__(self, name, parent, styleClass)
 		self._styles['text-decoration'] = 'blink'
 
+
 class H2(Widget):
 	
 	def __init__(self, name, parent=None, styleClass=None):
 		Widget.__init__(self, name, parent, styleClass)
 		self._styles['font-size'] = '110%'
 
-css = u'''
-P {
-  font-family: Garamond, serif;
-}
-h2 {
-  font-size: 110%;
-  color: red;
-  background: white;
-}
-.note {
-  color: red;
-  background: yellow;
-  font-weight: bold;
-  font-family: Times;
-}
-P#paragraph1 {
-  margin: 0;
-  font-family: New Times;
-}
-A:hover {
-  text-decoration: none;
-}
-#news P {
-  color: blue;
-}
-P A {
-  font-weight: normal;
-}
-P A:sdfasdf {
-  background-color: red;
-}
-'''
-
 
 sm = style.CsStyleManager()
-rules = sm.link(css)
+rules = sm.link(open('test.css').read())
 
 p1 = P('paragraph1')
 p2 = P('p2', p1, 'note')
